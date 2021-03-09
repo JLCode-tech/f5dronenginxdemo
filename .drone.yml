@@ -1,0 +1,57 @@
+---
+kind: pipeline
+name: startnotify
+
+steps:
+- name: startnotify
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: SLACK_WEB_URL
+    channel: infrastructure-as-code
+    template: >
+        Terraform {{build.link}} starting  
+
+---
+kind: pipeline
+name: infrastructure
+
+steps:
+- name: Terraform
+  image: jarrodl/tfdevbox:master
+  environment:
+    terracloud:
+      from_secret: terracloud
+  commands:
+    - mkdir $HOME/.terraform.d/ && echo "$terracloud" > $HOME/.terraform.d/credentials.tfrc.json
+    #- terraform -v
+    - terraform init 
+    - terraform validate
+    #- terraform plan
+    #- terraform apply -auto-approve
+    - terraform destroy -auto-approve
+
+---
+kind: pipeline
+name: endnotify
+
+depends_on: [ infrastructure ]
+  
+trigger:
+    status: [ success, failure ]
+
+steps:
+- name: endnotify
+  image: plugins/slack
+  settings:
+    webhook:
+      from_secret: SLACK_WEB_URL
+    channel: infrastructure-as-code
+    template: >
+      {{#success build.status}}
+        build {{build.number}} {{build.link}} Success. Infastructure Built and Finished - Nice One !
+      {{else}}
+        build {{build.number}} {{build.link}} Failed. Computer says No !
+      {{/success}}
+  when:
+      status: [ success, failure ]
