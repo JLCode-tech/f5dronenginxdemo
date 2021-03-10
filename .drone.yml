@@ -18,14 +18,14 @@ name: infrastructure
 
 steps:
 - name: Terraform
-  image: jarrodl/tfdevbox:latest
+  image: jarrodl/tfdevbox:main
   environment:
     terracloud:
       from_secret: terracloud
   commands:
     - mkdir $HOME/.terraform.d/ && echo "$terracloud" > $HOME/.terraform.d/credentials.tfrc.json
     #- terraform -v
-    - terraform init -upgrade
+    - terraform init
     - terraform validate
     #- terraform plan
     #- terraform apply -auto-approve
