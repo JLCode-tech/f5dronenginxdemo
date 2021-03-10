@@ -27,9 +27,9 @@ steps:
     #- terraform -v
     - terraform init -upgrade
     - terraform validate
-    - terraform plan
+    #- terraform plan
     #- terraform apply -auto-approve
-    #- terraform destroy -auto-approve
+    - terraform destroy -auto-approve
 
 ---
 kind: pipeline
