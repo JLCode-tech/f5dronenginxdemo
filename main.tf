@@ -21,10 +21,10 @@ terraform {
 resource "aws_vpc" "dronenginxdemo" {
   cidr_block = "10.0.0.0/16"
   tags = {
-    Name = "${var.name}"
-    CostCode = "${var.costcode}"
-    TTL = "${var.ttl}"
-    Environment = "${var.environment}"
+    Name = var.name
+    CostCode = var.costcode
+    TTL = var.ttl
+    Environment = var.environment
   }
 }
 
@@ -32,10 +32,10 @@ resource "aws_vpc" "dronenginxdemo" {
 resource "aws_internet_gateway" "dronenginxdemo" {
   vpc_id = aws_vpc.dronenginxdemo.id
   tags = {
-    Name = "${var.name}"
-    CostCode = "${var.costcode}"
-    TTL = "${var.ttl}"
-    Environment = "${var.environment}"
+    Name = var.name
+    CostCode = var.costcode
+    TTL = var.ttl
+    Environment = var.environment
   }
 }
 
@@ -52,10 +52,10 @@ resource "aws_subnet" "dronenginxdemo" {
   cidr_block              = "10.0.1.0/24"
   map_public_ip_on_launch = true
   tags = {
-    Name = "${var.name}"
-    CostCode = "${var.costcode}"
-    TTL = "${var.ttl}"
-    Environment = "${var.environment}"
+    Name = var.name
+    CostCode = var.costcode
+    TTL = var.ttl
+    Environment = var.environment
   }
 }
 
@@ -144,10 +144,10 @@ resource "aws_elb" "dronenginxdemoelb" {
     lb_protocol       = "http"
   }
   tags = {
-    Name = "${var.name}"
-    CostCode = "${var.costcode}"
-    TTL = "${var.ttl}"
-    Environment = "${var.environment}"
+    Name = var.name
+    CostCode = var.costcode
+    TTL = var.ttl
+    Environment = var.environment
   }
 }
 
@@ -162,10 +162,10 @@ resource "aws_instance" "dronenginxdemo" {
   user_data = file("install_nginx.sh")
 #tag instances created
   tags = {
-    Name = "${var.name}"
-    CostCode = "${var.costcode}"
-    TTL = "${var.ttl}"
-    Environment = "${var.environment}"
+    Name = var.name
+    CostCode = var.costcode
+    TTL = var.ttl
+    Environment = var.environment
   }
 }
 
