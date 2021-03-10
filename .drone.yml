@@ -18,7 +18,7 @@ name: infrastructure
 
 steps:
 - name: Terraform
-  image: jarrodl/tfdevbox:master
+  image: jarrodl/tfdevbox:latest
   environment:
     terracloud:
       from_secret: terracloud
