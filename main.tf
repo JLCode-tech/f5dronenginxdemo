@@ -127,9 +127,9 @@ resource "aws_security_group" "dronenginxdemo" {
 resource "aws_elb" "dronenginxdemoelb" {
   name = "dronenginxdemoelb"
 
-  subnets         = ["${aws_subnet.dronenginxdemo.id}"]
-  security_groups = ["${aws_security_group.dronenginxdemoelb.id}"]
-  instances       = ["${aws_instance.dronenginxdemo.id}"]
+  subnets         = [aws_subnet.dronenginxdemo.id]
+  security_groups = [aws_security_group.dronenginxdemoelb.id]
+  instances       = [aws_instance.dronenginxdemo.id]
 
   listener {
     instance_port     = 5252
@@ -156,7 +156,7 @@ resource "aws_instance" "dronenginxdemo" {
   ami           = "ami-02a599eb01e3b3c5b"
   instance_type = "t2.micro"
   key_name = "JLCodeTech"
-  vpc_security_group_ids = ["${aws_security_group.dronenginxdemo.id}"]
+  vpc_security_group_ids = [aws_security_group.dronenginxdemo.id]
   subnet_id = aws_subnet.dronenginxdemo.id
   #security_groups = [aws_security_group.dronenginxdemo.name]
   user_data = file("install_nginx.sh")
