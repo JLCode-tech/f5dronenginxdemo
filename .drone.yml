@@ -27,6 +27,15 @@ steps:
     #- mkdir $HOME/.terraform.d/ && echo "$terracloud" > $HOME/.terraform.d/credentials.tfrc.json
     - echo "$terracloud" > $HOME/.terraform.d/credentials.tfrc.json
     - terraform -version
+    # Set the Terraform and Terragrunt image versions
+    - ENV TERRAFORM_VERSION=0.15.3
+    # Install Terraform
+    - echo "----Installing Terraform----"
+    - curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip > terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+    - unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/bin
+    - rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+    - rm -f terraform_${TERRAFORM_VERSION}_SHA256SUMS
+    - terraform -version
     #- terraform -v
     - terraform init
     - terraform validate
