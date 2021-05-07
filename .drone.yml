@@ -24,7 +24,8 @@ steps:
     terracloud:
       from_secret: terracloud
   commands:
-    - mkdir $HOME/.terraform.d/ && echo "$terracloud" > $HOME/.terraform.d/credentials.tfrc.json
+    #- mkdir $HOME/.terraform.d/ && echo "$terracloud" > $HOME/.terraform.d/credentials.tfrc.json
+    - echo "$terracloud" > $HOME/.terraform.d/credentials.tfrc.json
     #- terraform -v
     - terraform init
     - terraform validate
