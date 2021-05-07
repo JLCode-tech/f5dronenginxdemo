@@ -26,6 +26,7 @@ steps:
   commands:
     #- mkdir $HOME/.terraform.d/ && echo "$terracloud" > $HOME/.terraform.d/credentials.tfrc.json
     - echo "$terracloud" > $HOME/.terraform.d/credentials.tfrc.json
+    - terraform -version
     #- terraform -v
     - terraform init
     - terraform validate
