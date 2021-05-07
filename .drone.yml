@@ -18,7 +18,8 @@ name: infrastructure
 
 steps:
 - name: Terraform
-  image: jarrodl/tfdevbox:main
+  #image: jarrodl/tfdevbox:main
+  image: gcr.io/volterraio/volt-terraform:latest
   environment:
     terracloud:
       from_secret: terracloud
@@ -28,8 +29,8 @@ steps:
     - terraform init
     - terraform validate
     #- terraform plan
-    #- terraform apply -auto-approve
-    - terraform destroy -auto-approve
+    - terraform apply -auto-approve
+    #- terraform destroy -auto-approve
 
 ---
 kind: pipeline
